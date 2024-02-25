@@ -1,0 +1,15 @@
+{
+  "name": "lecture02",
+  "version": "1.0.0",
+  "description": "A simple node project",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "func": "node func.js"
+  },
+  "author": "Mottel",
+  "license": "MIT",
+  "dependencies": {
+    "node-console-colors": "^1.1.5"
+  }
+}
