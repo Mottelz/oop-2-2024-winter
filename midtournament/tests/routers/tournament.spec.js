@@ -33,5 +33,20 @@ describe('Tournament routes', () => {
             const response = await request(app).get(`/event/${testId}`);
             expect(response.body.id).toBe(testId);
         });
+
+        test('should list 10 most recent tournaments if none is specified', async () => {
+            const response = await request(app).get('/event');
+            expect(response.body.events.length).toBeGreaterThanOrEqual(0);
+            expect(response.body.events.length).toBeLessThanOrEqual(10);
+        });
     });
+
+    /*
+    TODO:
+     - start round
+     - end round
+     - start tournment
+     - get winner
+     - get players in tournament
+    */
 })
