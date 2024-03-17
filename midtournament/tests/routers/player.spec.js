@@ -24,7 +24,7 @@ describe('Player routes', () => {
         const badTestPlayer = {
             name: 'missing'
         };
-        const response = request.post('/players/create').send(badTestPlayer);
+        const response = await request(app).post('/players/create').send(badTestPlayer);
 
         expect(response.statusCode).toBe(400);
     });
