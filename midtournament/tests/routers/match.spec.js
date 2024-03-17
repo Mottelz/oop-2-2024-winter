@@ -14,7 +14,7 @@ describe('Match Routes', () => {
     describe('Get matches by tournament', async () => {
         test('should return all matches by tournament id', async () => {
             const testId = 20;
-            const testMatches = matches.filter((m) => m.id === testId);
+            const testMatches = matches.filter((m) => m.tournament === testId);
             
             const response = await request(app).get(`/matches/event/${testId}`);
             expect(response.body.matches.length).toBe(testMatches.length);
