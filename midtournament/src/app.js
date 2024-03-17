@@ -1,6 +1,9 @@
 // Imports
 const express = require('express');
-const bodyParser = require('body-parser')
+const bodyParser = require('body-parser');
+const matchRouter = require('./routers/match');
+const playerRouter = require('./routers/player');
+const tournamentRouter = require('./routers/tournament');
 
 // Create & Configure App
 const app = express();
@@ -11,6 +14,10 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.get('/', (req, res) => {
     res.send('Please come back later.');
 });
+
+app.use('/', matchRouter);
+app.use('/', playerRouter);
+app.use('/', tournamentRouter);
 
 
 // 404 & Error Handling

@@ -11,18 +11,18 @@ describe('Match Routes', () => {
         {p1: 'c', p2: 'd', tournament: 10, id: 5},
         {p1: 'f', p2: 'e', tournament: 10, id: 6}
     ];
-    describe('Get matches by tournament', async () => {
+    describe('Get matches by tournament', () => {
         test('should return all matches by tournament id', async () => {
             const testId = 20;
             const testMatches = matches.filter((m) => m.tournament === testId);
             
-            const response = await request(app).get(`/matches/event/${testId}`);
+            const response = await request(app).get(`/matches/events/${testId}`);
             expect(response.body.matches.length).toBe(testMatches.length);
             expect(response.body.matches).toMatchObject(testMatches);
         });
 
         test('should throw error if invalid id given', async () => {
-            const response = await request(app).get('/matches/event');
+            const response = await request(app).get('/matches/events/a');
             expect(response.statusCode).toBe(400);
         });
     });
@@ -32,12 +32,12 @@ describe('Match Routes', () => {
             const testPlayerId = 'a';
             const testMatches = matches.filter((m) => m.p1 === 'a' || m.p2 === 'a');
 
-            const response = await request(app).get(`/matches/player/${testPlayerId}`);
+            const response = await request(app).get(`/matches/players/${testPlayerId}`);
             expect(response.body.matches).toMatchObject(testMatches);
         });
 
         test('should throw error if invalid id given', async () => {
-            const response = await request(app).get('/matches/player');
+            const response = await request(app).get('/matches/players/fake');
             expect(response.statusCode).toBe(400);
         });
     });
