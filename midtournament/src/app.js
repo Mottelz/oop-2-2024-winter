@@ -4,6 +4,7 @@ const bodyParser = require('body-parser');
 const matchRouter = require('./routers/match');
 const playerRouter = require('./routers/player');
 const tournamentRouter = require('./routers/tournament');
+const adminRouter = require('./routers/admin');
 
 // Create & Configure App
 const app = express();
@@ -18,6 +19,7 @@ app.get('/', (req, res) => {
 app.use('/', matchRouter);
 app.use('/', playerRouter);
 app.use('/', tournamentRouter);
+app.use('/', adminRouter);
 
 
 // 404 & Error Handling
