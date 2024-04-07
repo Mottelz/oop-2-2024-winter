@@ -1,9 +1,17 @@
 const router = require('express').Router();
+const { getPlayerById, getAllPlayers, createPlayer } = require('../data/player')
+
+router.get('/players/all', async (req, res) => {
+    const players = await getAllPlayers();
+    res.json({players});
+});
+
 
 router.get('/players/:playerId', async (req, res) => {
-    const pid = +req.params.playerId;
+    const pid = req.params.playerId;
     if (pid !== undefined) {
-        res.json({id: pid});
+        const player = await getPlayerById(pid);
+        res.json(player);
     } else {
         res.status(400).json({message: 'player not found'});
     }
@@ -12,15 +20,13 @@ router.get('/players/:playerId', async (req, res) => {
 router.post('/players/create', async (req, res) => {
     const name = req.body?.name;
     const email = req.body?.email;
+    const discord = req.body?.discord;
 
-    if(email && name) {
-        res.json({
-            name,
-            email,
-            id: 0
-        })
+    if(email && name && discord) {
+        const newPlayer = await createPlayer(name, email, discord);
+        res.json({ message: 'player created', player: newPlayer })
     } else {
-        res.status(400).json({ message: 'missing player data' })
+        res.status(400).json({ message: 'missing player email' })
     }
 });
 
