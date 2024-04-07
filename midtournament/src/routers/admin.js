@@ -1,8 +1,8 @@
 const router = require('express').Router();
-const db = require('../data/init');
+const { init } = require('../data/init');
 
 router.get('/admin/init', async (req, res) => {
-    await db.init();
+    await init();
     res.json({msg: 'DB initialized'});
 });
 
