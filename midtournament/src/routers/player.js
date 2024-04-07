@@ -1,5 +1,10 @@
 const router = require('express').Router();
-const { getPlayerById, getAllPlayers, createPlayer } = require('../data/player')
+const { 
+    getPlayerById, 
+    getAllPlayers, 
+    getPlayerByEmail, 
+    createPlayer 
+} = require('../data/player')
 
 router.get('/players/all', async (req, res) => {
     const players = await getAllPlayers();
@@ -7,10 +12,20 @@ router.get('/players/all', async (req, res) => {
 });
 
 
-router.get('/players/:playerId', async (req, res) => {
+router.get('/players/id/:playerId', async (req, res) => {
     const pid = req.params.playerId;
     if (pid !== undefined) {
         const player = await getPlayerById(pid);
+        res.json(player);
+    } else {
+        res.status(400).json({message: 'player not found'});
+    }
+});
+
+router.get('/players/email/:playerEmail', async (req, res) => {
+    const pemail = req.params.playerEmail;
+    if (pemail !== undefined) {
+        const player = await getPlayerByEmail(pemail);
         res.json(player);
     } else {
         res.status(400).json({message: 'player not found'});

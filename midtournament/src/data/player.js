@@ -12,6 +12,12 @@ async function getPlayerById(pid){
     return info;
 }
 
+async function getPlayerByEmail(pemail){
+    const stmnt = db.prepare('SELECT * FROM Players WHERE email=?');
+    const info = await stmnt.get(pemail);
+    return info;
+}
+
 async function getAllPlayers(){
     const stmnt = db.prepare('SELECT * FROM Players');
     const info = await stmnt.all();
@@ -25,5 +31,6 @@ function updatePlayerDiscord(){}
 module.exports = {
     createPlayer, 
     getPlayerById,
-    getAllPlayers
+    getAllPlayers,
+    getPlayerByEmail
 }
