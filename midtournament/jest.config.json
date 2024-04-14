@@ -3,5 +3,8 @@
     "testEnvironment": "node",
     "coveragePathIgnorePatterns": [
         "/node_modules/"
+    ],
+    "setupFilesAfterEnv": [
+        "./tests/jest.setup.js"
     ]
 }

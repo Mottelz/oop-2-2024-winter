@@ -1,6 +1,12 @@
+DROP TABLE IF EXISTS Matches;
+DROP TABLE IF EXISTS Rounds;
+DROP TABLE IF EXISTS Tournaments;
+DROP TABLE IF EXISTS Players;
+
+
 CREATE TABLE Players (
     name TEXT NOT NULL,
-    email TEXT NOT NULL,
+    email TEXT NOT NULL UNIQUE,
     discord TEXT NOT NULL
 );
 
@@ -18,7 +24,7 @@ CREATE TABLE Tournaments(
 CREATE TABLE Rounds(
     format TEXT NOT NULL,
     tid INTEGER NOT NULL,
-    FOREIGN KEY (tid) REFERENCES Tournaments (id)
+    FOREIGN KEY (tid) REFERENCES Tournaments (rowid)
 );
 
 CREATE TABLE Matches(
@@ -26,7 +32,7 @@ CREATE TABLE Matches(
     player2  INTEGER,
     result  INTEGER,
     round  INTEGER NOT NULL,
-    FOREIGN KEY (player1) REFERENCES Players (id),
-    FOREIGN KEY (player2) REFERENCES Players (id),
-    FOREIGN KEY (round) REFERENCES Rounds (id)
+    FOREIGN KEY (player1) REFERENCES Players (rowid),
+    FOREIGN KEY (player2) REFERENCES Players (rowid),
+    FOREIGN KEY (round) REFERENCES Rounds (rowid)
 );
