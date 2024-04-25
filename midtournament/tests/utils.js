@@ -11,7 +11,16 @@ async function getRecordFromDB(table, field, value) {
     return data;
 };
 
+async function addToDB(table, fields, records) {
+    const raw = `INSERT INTO ${table}(${fields.join(', ')}) VALUES (${fields.map((v) => `@${v}`).join(', ')})`;
+    const stmnt = db.db.prepare(raw);
+    for (const record of records) {
+        await stmnt.run(record);
+    };
+};
+
 module.exports = {
+    addToDB,
     initializeDB,
     getRecordFromDB
 };
