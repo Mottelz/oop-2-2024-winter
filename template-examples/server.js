@@ -1,36 +1,30 @@
 const port = 3000;
 const express = require('express');
 const bodyParser = require('body-parser');
-
+const numberRouter = require('./routers/number.router');
+const a = require('./a')
 // Create & Configure App
 const app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.set('view engine', 'ejs');
+app.use(express.static('public'));
 
 // Create routes
 app.get('/', (req, res) => {
-    res.render('home', { });
-    // res.render('home', { title: 'Home' });
+    res.render('home', { title: 'Home' });
 });
+app.use('', numberRouter);
 
 
 // 404 & Error Handling
 app.all('*', (req, res) => {
-    res.status(404).json({
-        msg: 'Something was wrong with your request', 
-        reqMethod: req.method,
-        reqPath: req.path,
-        reqQuery: req.query,
-        reqBody: req.body, 
-    });
+    res.status(404).render('404');
 });
 
 const errorHandler = (err, req, res, next) => {
     console.error(err.stack);
-    res.status(500).json({
-        msg: 'Internal Server Error',
-    });
+    res.status(500).render('error');
 };
 app.use(errorHandler);
 
