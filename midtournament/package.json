@@ -5,7 +5,8 @@
   "scripts": {
     "test": "jest",
     "dev": "nodemon server.js",
-    "start": "node server.js"
+    "start": "node server.js",
+    "db:init": "sqlite3 tour.db < ./scripts/init.sql"
   },
   "author": "Mottel",
   "license": "MIT",
